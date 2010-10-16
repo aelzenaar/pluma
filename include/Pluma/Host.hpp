@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////
 //
-// Pluma - Plugin Minimal Architecture
+// Pluma - Plug-in Management Framework
 // Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
