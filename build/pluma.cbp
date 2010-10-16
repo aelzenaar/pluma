@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="pluma" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug DLL_Win32">
+				<Option output="..\bin\pluma-d" prefix_auto="1" extension_auto="1" />
+				<Option object_output="..\..\z_output_temp\pluma\debug" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-O0" />
+				</Compiler>
+			</Target>
+			<Target title="Release DLL_Win32">
+				<Option output="..\bin\pluma" prefix_auto="1" extension_auto="1" />
+				<Option object_output="..\..\z_output_temp\pluma\release" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O3" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DPLUMA_EXPORTS" />
+			<Add directory="..\include" />
+			<Add directory="..\src" />
+		</Compiler>
+		<Unit filename="..\include\Pluma\Host.hpp" />
+		<Unit filename="..\include\Pluma\PluginManager.hpp" />
+		<Unit filename="..\include\Pluma\Provider.hpp" />
+		<Unit filename="..\src\Pluma\DLibrary.cpp" />
+		<Unit filename="..\src\Pluma\DLibrary.hpp" />
+		<Unit filename="..\src\Pluma\Host.cpp" />
+		<Unit filename="..\src\Pluma\PluginManager.cpp" />
+		<Unit filename="..\src\Pluma\Provider.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
