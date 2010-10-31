@@ -66,9 +66,15 @@ bool PluginManager::load(const std::string& path){
         delete lib;
         return false;
     }
-    // Everything's fine, so store the library
+    // Store the library if addictions are confirmed
     if (host.confirmAddictions())
         libraries[plugName] = lib;
+    else{
+        // otherwise nothing was registered
+        fprintf(stderr, "Nothing registered by plugin \"%s\".\n", plugName.c_str());
+        delete lib;
+        return false;
+    }
     return true;
 }
 
