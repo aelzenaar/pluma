@@ -14,7 +14,7 @@ int main(){
     plugins.acceptProviderType<DeviceProvider>();
 
     // Load some dll
-    plugins.load("plugins\\standard_devices.dll");
+    plugins.load("plugins", "standard_devices");
 
     // Get device providers into a vector
     std::vector<DeviceProvider*> providers;

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -53,27 +53,51 @@ public:
     ~PluginManager();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Load a plugin.
+    /// \brief Load a plugin given it's path
     ///
-    /// \param path Path for the plugin.
+    /// \param path Path for the plugin, including plugin name. File extension
+    /// may be included, but is discouraged for better cross platform code.
+    /// If file extension isn't present on the path, Pluma will deduce it
+    /// from the operating system.
     ///
     /// \return True if the plugin is successfully loaded.
     ///
+    /// \see load(const std::string&, const std::string&)
     /// \see unload
     /// \see unloadAll
     ///
     ////////////////////////////////////////////////////////////
     bool load(const std::string& path);
 
+
+        ////////////////////////////////////////////////////////////
+    /// \brief Load a plugin from a given folder
+    ///
+    /// \param folder The folder path.
+    /// \param pluginName Name of the plugin. File extension
+    /// may be included, but is discouraged for better cross platform code.
+    /// If file extension is omitted, Pluma will deduce it
+    /// from the operating system.
+    ///
+    /// \return True if the plugin is successfully loaded.
+    ///
+    /// \see load(const std::string&)
+    /// \see unload
+    /// \see unloadAll
+    ///
+    ////////////////////////////////////////////////////////////
+    bool load(const std::string& folder, const std::string& pluginName);
+
     ////////////////////////////////////////////////////////////
     /// \brief Unload a plugin.
     ///
-    /// \param pluginName Name or Path for the plugin.
+    /// \param pluginName Name or path of the plugin.
     ///
     /// \return True if the plugin is successfully unloaded,
     /// false if no such plugin exists on the manager.
     ///
-    /// \see load
+    /// \see load(const std::string&, const std::string&)
+    /// \see load(const std::string&)
     /// \see unloadAll
     ///
     ////////////////////////////////////////////////////////////
@@ -82,7 +106,8 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Unload all loaded plugins.
     ///
-    /// \see load
+    /// \see load(const std::string&, const std::string&)
+    /// \see load(const std::string&)
     /// \see unload
     ///
     ////////////////////////////////////////////////////////////
@@ -111,7 +136,7 @@ protected:
     /// \brief Regist a provider type
     ///
     /// \param type Provider type.
-    /// \param version Current version of thatprovider type.
+    /// \param version Current version of that provider type.
     /// \param lowestVersion Lowest compatible version of that provider type.
     ///
     /// \see Host::registType
@@ -142,11 +167,30 @@ private:
     ///
     /// \return Name of the plugin.
     ///
-    /// \see load
+    /// \see resolvePathExtension
+    /// \see load(const std::string&, const std::string&)
+    /// \see load(const std::string&)
     /// \see unload
     ///
     ////////////////////////////////////////////////////////////
     static std::string getPluginName(const std::string& path);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief If the plugin path omits it's extension, this method returns
+    /// the path plus the OS specific dll extension.
+    /// Return a copy of the path otherwise.
+    ///
+    /// \param path Plugin path.
+    ///
+    /// \return Path with extension.
+    ///
+    /// \see getPluginName
+    /// \see load(const std::string&, const std::string&)
+    /// \see load(const std::string&)
+    /// \see unload
+    ///
+    ////////////////////////////////////////////////////////////
+    static std::string resolvePathExtension(const std::string& path);
 
 
 private:

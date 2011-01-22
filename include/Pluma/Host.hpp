@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -85,7 +85,7 @@ private:
     ///
     /// \param type Provider type id.
     ///
-    /// \return True if the type is registerd
+    /// \return True if the type is registered
     ///
     ////////////////////////////////////////////////////////////
     bool knows(const std::string& type) const;
@@ -114,7 +114,7 @@ private:
     /// \brief Regist a type of providers.
     ///
     /// \param type Provider type.
-    /// \param version Current version of thatprovider type.
+    /// \param version Current version of that provider type.
     /// \param lowestVersion Lowest compatible version of that provider type.
     ///
     ////////////////////////////////////////////////////////////

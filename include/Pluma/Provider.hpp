@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -64,8 +64,8 @@ public:
     ///
     /// The same provider may be compiled with different versions
     /// on host side and on plugins side. This function checks if
-    /// a plugin provider is compatible with the present version of
-    /// the same provider on the host application.
+    /// a plugin provider is compatible with the current version of
+    /// the same provider type on the host side.
     ///
     /// \param host Host, proxy of host application.
     ///
@@ -140,7 +140,7 @@ private:
 /// // Tell it to accept providers of the type DeviceProvider
 /// plugins.acceptProviderType<DeviceProvider>();
 /// // Load some dll
-/// plugins.load("plugins\\standard_devices.dll");
+/// plugins.load("plugins", "standard_devices");
 /// // Get device providers into a vector
 /// std::vector<DeviceProvider*> providers;
 /// plugins.getProviders(providers);

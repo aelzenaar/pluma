@@ -36,7 +36,7 @@ namespace pluma{
 ////////////////////////////////////////////////////////////
 DLibrary* DLibrary::load(const std::string& path){
     if ( path.empty() ){
-        fprintf(stderr, "Library loading failed: Empty path\n");
+        fprintf(stderr, "Failed to load library: Empty path\n");
         return NULL;
     }
     void* handle = NULL;

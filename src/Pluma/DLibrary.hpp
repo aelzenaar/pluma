@@ -72,9 +72,9 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Get a symbol from the library.
     ///
-    /// \param symbol Symbol that we're lookinf for.
+    /// \param symbol Symbol that we're looking for.
     ///
-    /// \return Pointer to what the symbol referes to, or NULL if
+    /// \return Pointer to what the symbol refers to, or NULL if
     /// the symbol is not found.
     ///
     ////////////////////////////////////////////////////////////

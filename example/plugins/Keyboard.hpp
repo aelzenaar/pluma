@@ -17,7 +17,7 @@ public:
 
 /////////////////////////////////////////////////////////
 /// Generate class KeyboardProvider
-/// It's a DeviceProvider to provides hosts with Keyboard objects
+/// It's a DeviceProvider, provide keyboards
 /////////////////////////////////////////////////////////
 PLUMA_INHERIT_PROVIDER(Keyboard, Device);
 

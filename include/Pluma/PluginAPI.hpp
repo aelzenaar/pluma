@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -32,7 +32,8 @@
 #include <Pluma\Host.hpp>
 
 ////////////////////////////////////////////////////////////
-//Macro that helps plugins generating their provider implementations
+// Macro that helps plugins generating their provider implementations
+// PRE: SPECIALIZED_TYPE must inherit from BASE_TYPE
 ////////////////////////////////////////////////////////////
 #define PLUMA_INHERIT_PROVIDER(SPECIALIZED_TYPE, BASE_TYPE)\
 class SPECIALIZED_TYPE##Provider: public BASE_TYPE##Provider{\

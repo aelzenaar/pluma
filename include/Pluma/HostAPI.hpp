@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -77,7 +77,7 @@ public:
     /// \brief Tell Pluma to accept a certain type of providers
     ///
     /// A Pluma object is able to accept multiple types of providers.
-    /// When a plugin is loaded, it tries to regist it's providers
+    /// When a plugin is loaded, it tries to register it's providers
     /// implementations. Those are only accepted by the host
     /// application if it's accepting providers of that kind.
     ///
@@ -122,7 +122,7 @@ public:
 /// // Tell it to accept providers of the type DeviceProvider
 /// plugins.acceptProviderType<DeviceProvider>();
 /// // Load some dll
-/// plugins.load("plugins\\standard_devices.dll");
+/// plugins.load("plugins\\standard_devices");
 /// // Get device providers into a vector
 /// std::vector<DeviceProvider*> providers;
 /// plugins.getProviders(providers);
@@ -138,7 +138,7 @@ public:
 ///
 /// It is also possible to add local providers, providers that
 /// are (pre)defined directly on the host application. That can
-/// be useful to provide amd use default implementations of certain
+/// be useful to provide and use default implementations of certain
 /// interfaces, along with plugin implementations.
 ///
 ////////////////////////////////////////////////////////////

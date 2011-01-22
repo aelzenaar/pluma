@@ -17,7 +17,7 @@ public:
 
 /////////////////////////////////////////////////////////
 /// Generate class MouseProvider
-/// It's a DeviceProvider to provides hosts with Mouse objects
+/// It's a DeviceProvider, provide mouses
 /////////////////////////////////////////////////////////
 PLUMA_INHERIT_PROVIDER(Mouse,Device);
 

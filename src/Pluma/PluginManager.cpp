@@ -47,7 +47,8 @@ PluginManager::~PluginManager(){
 ////////////////////////////////////////////////////////////
 bool PluginManager::load(const std::string& path){
     std::string plugName = getPluginName(path);
-    DLibrary* lib = DLibrary::load(path);
+    std::string realPath = resolvePathExtension(path);
+    DLibrary* lib = DLibrary::load(realPath);
     if (!lib) return false;
 
     fnRegisterPlugin* registFunction;
@@ -80,6 +81,16 @@ bool PluginManager::load(const std::string& path){
 
 
 ////////////////////////////////////////////////////////////
+bool PluginManager::load(const std::string& folder, const std::string& pluginName){
+    if (folder.empty())
+        return load(pluginName);
+    else if (folder[folder.size()-1] == '\\')
+        return load(folder + pluginName);
+    return load(folder + "\\" + pluginName);
+}
+
+
+////////////////////////////////////////////////////////////
 bool PluginManager::unload(const std::string& pluginName){
     std::string plugName = getPluginName(pluginName);
     LibMap::iterator it = libraries.find(plugName);
@@ -108,11 +119,33 @@ void PluginManager::unloadAll(){
 std::string PluginManager::getPluginName(const std::string& path){
     size_t lastDash = path.find_last_of("/\\");
     size_t lastDot = path.find_last_of('.');
-    if (lastDash == std::string::npos)lastDash = 0;
+    if (lastDash == std::string::npos) lastDash = 0;
     else ++lastDash;
-    if (lastDot == std::string::npos)lastDot = path.length();
-    if (lastDot > lastDash) return path.substr(lastDash, lastDot-lastDash);
-    else return path;
+    if (lastDot < lastDash || lastDot == std::string::npos){
+        // path without extension
+        lastDot = path.length();
+    }
+    return path.substr(lastDash, lastDot-lastDash);
+}
+
+
+////////////////////////////////////////////////////////////
+std::string PluginManager::resolvePathExtension(const std::string& path){
+    size_t lastDash = path.find_last_of("/\\");
+    size_t lastDot = path.find_last_of('.');
+    if (lastDash == std::string::npos) lastDash = 0;
+    else ++lastDash;
+    if (lastDot < lastDash || lastDot == std::string::npos){
+        // path without extension, resolve it
+        #ifdef PLUMA_SYS_WINDOWS
+            return path + ".dll";
+        #elif defined(PLUMA_SYS_MACOS)
+            return path + ".dylib";
+        #else // defined(PLUMA_SYS_LINUX) || defined(PLUMA_SYS_FREEBSD)
+            return path + ".so";
+        #endif
+    }
+    return path;
 }
 
 
