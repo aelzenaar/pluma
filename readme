@@ -2,7 +2,7 @@ Pluma - Plug-in Management Framework
 
 1. About
 
-   Pluma stands for plug-in management framework, and also for plug-in minimal architecture.
+   Pluma stands for PLUg-in MAnagement framework, and also for PLUg-in Minimal Architecture.
    It's small, cross-platform and simple to use. Support and more information at http://pluma-framework.sourceforge.net
 
 
@@ -12,7 +12,7 @@ Pluma - Plug-in Management Framework
    Source code is provided under the terms of the zlib/libpng License (http://www.opensource.org/licenses/zlib-license.php):
 
       Pluma - Plug-in Management Framework
-      Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+      Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 
       This software is provided 'as-is', without any express or implied warranty.
       In no event will the authors be held liable for any damages arising from the use of this software.

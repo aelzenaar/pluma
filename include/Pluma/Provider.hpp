@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -87,7 +87,7 @@ private:
     /// \return Provider type id.
     ///
     ////////////////////////////////////////////////////////////
-    virtual std::string getType() const = 0;
+    virtual std::string plumaGetType() const = 0;
 
 };
 
@@ -99,23 +99,18 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class pluma::Provider
-///
-/// A host application define shared interfaces that tells what
-/// plugins should implement. Plugins implement them by inheriting from
-/// those interfaces.
 /// The plugin specific implementations are unknown at the host side,
-/// only the interfaces are known. Then, host app needs a generic way
-/// of create interface objects.
-/// That's what provider classes are about. Those classes can also be
-/// called factories, as this is the factory design pattern in action
+/// only their shared interfaces are known. Then, host app needs a generic
+/// way of create interface objects. That's what provider classes are for.
+/// It is the factory design pattern
 /// (http://www.oodesign.com/factory-pattern.html)
 ///
-/// Host applications define specific provider types (by inheriting from
+/// Shared interfaces define their provider types (by inheriting from
 /// pluma::Provider). Hosts then use those tipes to get objects from the
 /// plugins.
-/// Plugins derive providers from the types required by the host. When
-/// a plugin is connected, it add specific providers to the host, so that
-/// the host can use them to create the interface objects.
+/// Plugins derive the shared interface providers so that they can provide
+/// host with specific implementations of the shared interface.
+/// Those specific providers are given to the host through a connect function.
 ///
 ///
 /// Example: A host app uses objects of type Device. A certain plugin
@@ -126,38 +121,51 @@ private:
 ///
 /// Device code (shared):
 /// \code
+/// #include <Pluma\Pluma.hpp>
 /// class Device{
 /// public:
 ///     virtual std::string getDescription() = 0;
 /// };
-/// // create DevicedProvider with version 6, compatible with at least v.3
+/// // create DevicedProvider with version 6, and compatible with at least v.3
 /// PLUMA_GEN_PROVIDER(Device, 6, 3);
 /// \endcode
 ///
 /// Host application code:
 /// \code
-/// pluma::Pluma plugins;
-/// // Tell it to accept providers of the type DeviceProvider
-/// plugins.acceptProviderType<DeviceProvider>();
-/// // Load some dll
-/// plugins.load("plugins", "standard_devices");
-/// // Get device providers into a vector
-/// std::vector<DeviceProvider*> providers;
-/// plugins.getProviders(providers);
-/// // create a Device from the first provider
-/// if (!providers.empty()){
-///     Device* myDevice = providers.first()->create();
-///     // do something with myDevice
-///     std::cout << device->getDescription() << std::endl;
-///     // (...)
-///     delete myDevice;
+/// #include <Pluma\Pluma.hpp>
+///
+/// #include "Device.hpp"
+/// #include <iostream>
+/// #include <vector>
+///
+/// int main(){
+///
+///     pluma::Pluma plugins;
+///     // Tell plugins manager to accept providers of the type DeviceProvider
+///     plugins.acceptProviderType<DeviceProvider>();
+///     // Load library "standard_devices" from folder "plugins"
+///     plugins.load("plugins", "standard_devices");
+///
+///     // Get device providers into a vector
+///     std::vector<DeviceProvider*> providers;
+///     plugins.getProviders(providers);
+///
+///     // create a Device from the first provider
+///     if (!providers.empty()){
+///         Device* myDevice = providers.first()->create();
+///         // do something with myDevice
+///         std::cout << device->getDescription() << std::endl;
+///         // and delete it in the end
+///         delete myDevice;
+///     }
+///     return 0;
 /// }
 /// \endcode
 ///
-///
-/// Keyboard code at plugin:
+/// <br>
+/// Keyboard code on the plugin side:
 /// \code
-/// #include <Pluma\PluginAPI.hpp>
+/// #include <Pluma\Pluma.hpp>
 /// #include "Device.hpp"
 ///
 /// class Keyboard: public Device{
@@ -165,17 +173,20 @@ private:
 ///     std::string getDescription(){
 ///         return "keyboard";
 ///     }
-///     // (...)
 /// };
 ///
-/// // create KeyboardProvider, it is a DeviceProvider implementation
+/// // create KeyboardProvider, it implements DeviceProvider
 /// PLUMA_INHERIT_PROVIDER(Keyboard, Device);
 /// \endcode
 ///
-/// plugin code:
+/// plugin connector:
 /// \code
-/// PLUMA_PLUGIN_CONNECTION
+/// #include <Pluma\Connector.hpp>
+/// #include "Keyboard.hpp"
+///
+/// PLUMA_CONNECTOR
 /// bool connect(pluma::Host& host){
+///     // add a keyboard provider to host
 ///     host.add( new KeyboardProvider() );
 ///     return true;
 /// }

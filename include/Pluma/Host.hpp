@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -111,14 +111,14 @@ private:
     unsigned int getLowestVersion(const std::string& type) const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Regist a type of providers.
+    /// \brief Register a type of providers.
     ///
     /// \param type Provider type.
     /// \param version Current version of that provider type.
     /// \param lowestVersion Lowest compatible version of that provider type.
     ///
     ////////////////////////////////////////////////////////////
-    void registType(const std::string& type, unsigned int version, unsigned int lowestVersion);
+    void registerType(const std::string& type, unsigned int version, unsigned int lowestVersion);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get providers of a certain type.
@@ -157,7 +157,7 @@ private:
     /// \return True if the provider is accepted.
     ///
     ////////////////////////////////////////////////////////////
-    bool registProvider(Provider* provider);
+    bool registerProvider(Provider* provider);
 
     ////////////////////////////////////////////////////////////
     /// \brief Previous add calls are canceled.

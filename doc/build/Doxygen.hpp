@@ -4,11 +4,10 @@
 /// \section welcome Welcome
 /// Welcome to Pluma documentation. Here you will find a detailed
 /// view of all Pluma <a href="./annotated.htm">classes</a>.<br>
-/// The best way of understanding it is by following the <a href="./modules.htm">modules</a>
-/// organization.<br>
 /// If you are looking for support, you can visit the official website
-/// at <a href="http://www.pluma.pt.vu">www.pluma.pt.vu</a>.<br><br>
+/// at <a href="http://pluma-framework.sourceforge.net/">http://pluma-framework.sourceforge.net/</a>.<br><br>
 ///
+/// CSS based on <a href="http://www.sfml-dev.org/documentation/1.6/">SFML1.6 documentation</a><br>
 ///
 /// \section example Short Example
 /// A short example to demonstrate Pluma usage:<br>
@@ -19,6 +18,7 @@
 ///
 /// Device code (shared):
 /// \code
+/// #include <Pluma\Pluma.hpp>
 /// class Device{
 /// public:
 ///     virtual std::string getDescription() = 0;
@@ -29,7 +29,7 @@
 /// 
 /// Host application code:
 /// \code
-/// #include <Pluma\HostAPI.hpp>
+/// #include <Pluma\Pluma.hpp>
 /// 
 /// #include "Device.hpp"
 /// #include <iostream>
@@ -40,8 +40,8 @@
 ///     pluma::Pluma plugins;
 ///     // Tell plugins manager to accept providers of the type DeviceProvider
 ///     plugins.acceptProviderType<DeviceProvider>();
-///     // Load some dll
-///     plugins.load("plugins\\standard_devices.dll");
+///     // Load library "standard_devices" from folder "plugins"
+///     plugins.load("plugins", "standard_devices");
 ///
 ///     // Get device providers into a vector
 ///     std::vector<DeviceProvider*> providers;
@@ -55,14 +55,14 @@
 ///         // and delete it in the end
 ///         delete myDevice;
 ///     }
-///     return EXIT_SUCCESS;
+///     return 0;
 /// }
 /// \endcode
 ///
 /// <br>
-/// Keyboard code at plugin:
+/// Keyboard code on the plugin side:
 /// \code
-/// #include <Pluma\PluginAPI.hpp>
+/// #include <Pluma\Pluma.hpp>
 /// #include "Device.hpp"
 ///
 /// class Keyboard: public Device{
@@ -76,10 +76,12 @@
 /// PLUMA_INHERIT_PROVIDER(Keyboard, Device);
 /// \endcode
 ///
-/// plugin code:
+/// plugin connector:
 /// \code
-/// // Plugin registration function
-/// PLUMA_PLUGIN_CONNECTION
+/// #include <Pluma\Connector.hpp>
+/// #include "Keyboard.hpp"
+///
+/// PLUMA_CONNECTOR
 /// bool connect(pluma::Host& host){
 ///     // add a keyboard provider to host
 ///     host.add( new KeyboardProvider() );

@@ -2,14 +2,14 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="host example" />
+		<Option title="elite-warriors-plugin" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug DLL_Win32">
-				<Option output="..\bin\example-d" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\plugins\elite-warriors-d" prefix_auto="1" extension_auto="1" />
 				<Option object_output="..\..\z_output_temp\pluma\examples\debug" />
-				<Option type="1" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -20,9 +20,9 @@
 				</Linker>
 			</Target>
 			<Target title="Release DLL_Win32">
-				<Option output="..\bin\example" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\plugins\elite-warriors" prefix_auto="1" extension_auto="1" />
 				<Option object_output="..\..\z_output_temp\pluma\examples\release" />
-				<Option type="1" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
@@ -35,13 +35,17 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-DPLUGIN_EXPORTS" />
 			<Add directory="..\..\include" />
+			<Add directory="..\src\interface" />
+			<Add directory="..\src\plugin" />
 		</Compiler>
 		<Linker>
 			<Add directory="..\..\bin" />
 		</Linker>
-		<Unit filename="..\Device.hpp" />
-		<Unit filename="..\Main.cpp" />
+		<Unit filename="..\src\plugin\Connector.cpp" />
+		<Unit filename="..\src\plugin\Eagle.hpp" />
+		<Unit filename="..\src\plugin\Jaguar.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

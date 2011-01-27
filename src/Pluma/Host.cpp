@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -40,8 +40,15 @@ Host::Host(){
 
 ////////////////////////////////////////////////////////////
 bool Host::add(Provider* provider){
-    if (!validateProvider(provider)) return false;
-    addRequests[ provider->getType() ].push_back(provider);
+    if (provider == NULL){
+        fprintf(stderr, "Trying to add a null provider.\n");
+        return false;
+    }
+    if (!validateProvider(provider)){
+        delete provider;
+        return false;
+    }
+    addRequests[ provider->plumaGetType() ].push_back(provider);
     return true;
 }
 
@@ -92,7 +99,7 @@ unsigned int Host::getLowestVersion(const std::string& type) const{
 
 
 ////////////////////////////////////////////////////////////
-void Host::registType(const std::string& type, unsigned int version, unsigned int lowestVersion){
+void Host::registerType(const std::string& type, unsigned int version, unsigned int lowestVersion){
     if (!knows(type)){
         ProviderInfo pi;
         pi.version = version;
@@ -113,11 +120,7 @@ const std::list<Provider*>* Host::getProviders(const std::string& type) const{
 
 ////////////////////////////////////////////////////////////
 bool Host::validateProvider(Provider* provider) const{
-    if (provider == NULL){
-        fprintf(stderr, "Trying to add a null provider.\n");
-        return false;
-    }
-    const std::string& type = provider->getType();
+    const std::string& type = provider->plumaGetType();
     if ( !knows(type) ){
         fprintf(stderr, "%s provider type isn't registered.\n", type.c_str());
         return false;
@@ -131,9 +134,12 @@ bool Host::validateProvider(Provider* provider) const{
 
 
 ////////////////////////////////////////////////////////////
-bool Host::registProvider(Provider* provider){
-    if (!validateProvider(provider)) return false;
-    knownTypes[ provider->getType() ].providers.push_back(provider);
+bool Host::registerProvider(Provider* provider){
+    if (!validateProvider(provider)){
+        delete provider;
+        return false;
+    }
+    knownTypes[ provider->plumaGetType() ].providers.push_back(provider);
     return true;
 }
 

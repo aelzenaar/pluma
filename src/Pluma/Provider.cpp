@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -41,7 +41,7 @@ Provider::~Provider(){
 ////////////////////////////////////////////////////////////
 bool Provider::isCompatible(const Host& host) const{
     // check compatibility with host
-    const std::string& type = this->getType();
+    const std::string& type = this->plumaGetType();
     if (!host.knows(type)) return false;
     unsigned int lowest = host.getLowestVersion(type);
     unsigned int current = host.getVersion(type);

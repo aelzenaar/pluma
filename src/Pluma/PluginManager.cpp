@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2010 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,6 +28,7 @@
 ////////////////////////////////////////////////////////////
 #include <Pluma\PluginManager.hpp>
 #include <Pluma\DLibrary.hpp>
+#include <Pluma\Dir.hpp>
 #include <cstdio>
 
 namespace pluma{
@@ -51,16 +52,16 @@ bool PluginManager::load(const std::string& path){
     DLibrary* lib = DLibrary::load(realPath);
     if (!lib) return false;
 
-    fnRegisterPlugin* registFunction;
-    registFunction = reinterpret_cast<fnRegisterPlugin*>(lib->getSymbol("connect"));
+    fnRegisterPlugin* registerFunction;
+    registerFunction = reinterpret_cast<fnRegisterPlugin*>(lib->getSymbol("connect"));
 
-    if(!registFunction){
+    if(!registerFunction){
         fprintf(stderr, "Failed to initialize plugin \"%s\": connect function not found\n", plugName.c_str());
         delete lib;
         return false;
     }
     // try to initialize plugin:
-    if (!registFunction(host)){
+    if (!registerFunction(host)){
         // plugin decided to fail
         fprintf(stderr, "Self registry failed on plugin \"%s\".\n", plugName.c_str());
         host.cancelAddictions();
@@ -87,6 +88,20 @@ bool PluginManager::load(const std::string& folder, const std::string& pluginNam
     else if (folder[folder.size()-1] == '\\')
         return load(folder + pluginName);
     return load(folder + "\\" + pluginName);
+}
+
+
+////////////////////////////////////////////////////////////
+int PluginManager::loadFromFolder(const std::string& folder, bool recursive){
+    std::list<std::string> files;
+    dir::listFiles(files, folder, PLUMA_LIB_EXTENSION, recursive);
+    // try to load every library
+    int res = 0;
+    std::list<std::string>::const_iterator it;
+    for (it = files.begin() ; it != files.end() ; ++it){
+        if ( load(*it) ) ++res;
+    }
+    return res;
 }
 
 
@@ -136,22 +151,16 @@ std::string PluginManager::resolvePathExtension(const std::string& path){
     if (lastDash == std::string::npos) lastDash = 0;
     else ++lastDash;
     if (lastDot < lastDash || lastDot == std::string::npos){
-        // path without extension, resolve it
-        #ifdef PLUMA_SYS_WINDOWS
-            return path + ".dll";
-        #elif defined(PLUMA_SYS_MACOS)
-            return path + ".dylib";
-        #else // defined(PLUMA_SYS_LINUX) || defined(PLUMA_SYS_FREEBSD)
-            return path + ".so";
-        #endif
+        // path without extension, add it
+        return path + "." + PLUMA_LIB_EXTENSION;
     }
     return path;
 }
 
 
 ////////////////////////////////////////////////////////////
-void PluginManager::registType(const std::string& type, unsigned int version, unsigned int lowestVersion){
-    host.registType(type, version, lowestVersion);
+void PluginManager::registerType(const std::string& type, unsigned int version, unsigned int lowestVersion){
+    host.registerType(type, version, lowestVersion);
 }
 
 
@@ -161,7 +170,23 @@ bool PluginManager::addProvider(Provider* provider){
         fprintf(stderr, "Trying to add null provider\n");
         return false;
     }
-    return host.registProvider(provider);
+    return host.registerProvider(provider);
+}
+
+
+////////////////////////////////////////////////////////////
+void PluginManager::getLoadedPlugins(std::vector<const std::string*>& pluginNames) const{
+    pluginNames.reserve(pluginNames.size()+libraries.size());
+    LibMap::const_iterator it;
+    for(it = libraries.begin() ; it != libraries.end() ; ++it){
+        pluginNames.push_back(&(it->first));
+    }
+}
+
+
+////////////////////////////////////////////////////////////
+bool PluginManager::isLoaded(const std::string& pluginName) const{
+    return libraries.find(getPluginName(pluginName)) != libraries.end();
 }
 
 

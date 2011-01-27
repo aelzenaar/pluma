@@ -2,16 +2,16 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="plugin example" />
+		<Option title="aztec-warfare" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug DLL_Win32">
-				<Option output="..\bin\plugins\standard_devices-d" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\aztecs-d" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
 				<Option object_output="..\..\z_output_temp\pluma\examples\debug" />
-				<Option type="3" />
+				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-O0" />
@@ -21,11 +21,11 @@
 				</Linker>
 			</Target>
 			<Target title="Release DLL_Win32">
-				<Option output="..\bin\plugins\standard_devices" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\aztecs" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
 				<Option object_output="..\..\z_output_temp\pluma\examples\release" />
-				<Option type="3" />
+				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
 				</Compiler>
@@ -37,16 +37,15 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-DPLUGIN_EXPORTS" />
 			<Add directory="..\..\include" />
-			<Add directory="..\" />
+			<Add directory="..\src\interface" />
+			<Add directory="..\src\host" />
 		</Compiler>
 		<Linker>
 			<Add directory="..\..\bin" />
 		</Linker>
-		<Unit filename="..\plugins\Keyboard.hpp" />
-		<Unit filename="..\plugins\Mouse.hpp" />
-		<Unit filename="..\plugins\StandardDevices.cpp" />
+		<Unit filename="..\src\host\Main.cpp" />
+		<Unit filename="..\src\host\SimpleWarrior.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

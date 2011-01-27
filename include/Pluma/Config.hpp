@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -73,6 +73,22 @@
     // Unsupported system
     #error This operating system is not supported by this library
 
+#endif
+
+
+
+////////////////////////////////////////////////////////////
+// Define library file extension based on OS
+////////////////////////////////////////////////////////////
+#ifdef PLUMA_SYS_WINDOWS
+     #define PLUMA_LIB_EXTENSION "dll"
+#elif defined(PLUMA_SYS_MACOS)
+     #define PLUMA_LIB_EXTENSION "dylib"
+#elif defined(PLUMA_SYS_LINUX) || defined(PLUMA_SYS_FREEBSD)
+     #define PLUMA_LIB_EXTENSION "so"
+#else
+   // unknown library file type
+    #error Unknown library file extension for this operating system
 #endif
 
 

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -22,24 +22,14 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef PLUMA_PLUGIN_API_HPP
-#define PLUMA_PLUGIN_API_HPP
+#ifndef PLUMA_CONNECTOR_HPP
+#define PLUMA_CONNECTOR_HPP
 
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
 #include <Pluma\Config.hpp>
-#include <Pluma\Host.hpp>
-
-////////////////////////////////////////////////////////////
-// Macro that helps plugins generating their provider implementations
-// PRE: SPECIALIZED_TYPE must inherit from BASE_TYPE
-////////////////////////////////////////////////////////////
-#define PLUMA_INHERIT_PROVIDER(SPECIALIZED_TYPE, BASE_TYPE)\
-class SPECIALIZED_TYPE##Provider: public BASE_TYPE##Provider{\
-public:\
-    BASE_TYPE * create(){ return new SPECIALIZED_TYPE (); }\
-};
+#include <Pluma\Pluma.hpp>
 
 
 /////////////////////////////////////////////////////////////////
@@ -50,22 +40,22 @@ public:\
     #ifndef PLUMA_STATIC_PLUGIN
 
          // Windows platforms
-        #ifdef PLUGIN_EXPORTS
+        #ifndef PLUGIN_IMPORTS
 
             // From DLL side, we must export
             #ifdef __cplusplus
-               #define PLUMA_PLUGIN_CONNECTION extern "C" __declspec(dllexport)
+               #define PLUMA_CONNECTOR extern "C" __declspec(dllexport)
             #else
-               #define PLUMA_PLUGIN_CONNECTION __declspec(dllexport)
+               #define PLUMA_CONNECTOR __declspec(dllexport)
             #endif
 
         #else
 
             // From client application side, we must import
             #ifdef __cplusplus
-               #define PLUMA_PLUGIN_CONNECTION extern "C" __declspec(dllimport)
+               #define PLUMA_CONNECTOR extern "C" __declspec(dllimport)
             #else
-               #define PLUMA_PLUGIN_CONNECTION __declspec(dllimport)
+               #define PLUMA_CONNECTOR __declspec(dllimport)
             #endif
 
         #endif
@@ -73,16 +63,16 @@ public:\
     #else
 
         // No specific directive needed for static build
-        #define PLUMA_PLUGIN_CONNECTION
+        #define PLUMA_CONNECTOR
 
     #endif
 
 #else
 
     // Other platforms don't need to define anything
-    #define PLUMA_PLUGIN_CONNECTION
+    #define PLUMA_CONNECTOR
 
 #endif
 
 
-#endif // PLUMA_PLUGIN_API_HPP
+#endif // PLUMA_CONNECTOR_HPP

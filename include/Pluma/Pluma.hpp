@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -22,8 +22,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef PLUMA_HOST_API_HPP
-#define PLUMA_HOST_API_HPP
+#ifndef PLUMA_PLUMA_HPP
+#define PLUMA_PLUMA_HPP
 
 ////////////////////////////////////////////////////////////
 // Headers
@@ -42,20 +42,42 @@
 // provider classes
 ////////////////////////////////////////////////////////////
 #define PLUMA_GEN_PROVIDER(TYPE, Version, LowestVersion)\
+PLUMA_GEN_PROVIDER_BEGIN(TYPE)\
+virtual TYPE* create() const = 0;\
+PLUMA_GEN_PROVIDER_END(TYPE, Version, LowestVersion)
+
+////////////////////////////////////////////////////////////
+// Macro that generate first part of the provider
+////////////////////////////////////////////////////////////
+#define PLUMA_GEN_PROVIDER_BEGIN(TYPE)\
 class TYPE##Provider: public pluma::Provider{\
-public:\
-    virtual TYPE* create() = 0;\
 private:\
     friend class pluma::Pluma;\
-    static const unsigned int VERSION;\
-    static const unsigned int LOWEST_VERSION;\
-    static const std::string PROVIDER_TYPE;\
-    unsigned int getVersion() const{ return VERSION; }\
-    std::string getType() const{ return PROVIDER_TYPE; }\
+    static const unsigned int PLUMA_INTERFACE_VERSION;\
+    static const unsigned int PLUMA_INTERFACE_LOWEST_VERSION;\
+    static const std::string PLUMA_PROVIDER_TYPE;\
+    std::string plumaGetType() const{ return PLUMA_PROVIDER_TYPE; }\
+public:\
+    unsigned int getVersion() const{ return PLUMA_INTERFACE_VERSION; }
+
+////////////////////////////////////////////////////////////
+// Macro that generate last part of the provider
+////////////////////////////////////////////////////////////
+#define PLUMA_GEN_PROVIDER_END(TYPE, Version, LowestVersion)\
 };\
-const std::string TYPE##Provider::PROVIDER_TYPE = PLUMA_2STRING( TYPE );\
-const unsigned int TYPE##Provider::VERSION = Version;\
-const unsigned int TYPE##Provider::LOWEST_VERSION = LowestVersion;
+const std::string TYPE##Provider::PLUMA_PROVIDER_TYPE = PLUMA_2STRING( TYPE );\
+const unsigned int TYPE##Provider::PLUMA_INTERFACE_VERSION = Version;\
+const unsigned int TYPE##Provider::PLUMA_INTERFACE_LOWEST_VERSION = LowestVersion;
+
+////////////////////////////////////////////////////////////
+// Macro that helps plugins generating their provider implementations
+// PRE: SPECIALIZED_TYPE must inherit from BASE_TYPE
+////////////////////////////////////////////////////////////
+#define PLUMA_INHERIT_PROVIDER(SPECIALIZED_TYPE, BASE_TYPE)\
+class SPECIALIZED_TYPE##Provider: public BASE_TYPE##Provider{\
+public:\
+    BASE_TYPE * create() const{ return new SPECIALIZED_TYPE (); }\
+};
 
 
 namespace pluma{
@@ -106,7 +128,7 @@ public:
 }
 
 
-#endif // PLUMA_HOST_API_HPP
+#endif // PLUMA_PLUMA_HPP
 
 
 ////////////////////////////////////////////////////////////
@@ -114,18 +136,18 @@ public:
 ///
 /// Pluma is the main class of Pluma library. Allows hosting
 /// applications to load/unload dlls in runtime (plugins), and
-/// to get providers for the host-defined interface objects.
+/// to get providers of shared interface objects.
 ///
 /// Example:
 /// \code
-/// pluma::Pluma plugins;
+/// pluma::Pluma pluma;
 /// // Tell it to accept providers of the type DeviceProvider
-/// plugins.acceptProviderType<DeviceProvider>();
+/// pluma.acceptProviderType<DeviceProvider>();
 /// // Load some dll
-/// plugins.load("plugins\\standard_devices");
+/// pluma.load("plugins\\standard_devices");
 /// // Get device providers into a vector
 /// std::vector<DeviceProvider*> providers;
-/// plugins.getProviders(providers);
+/// pluma.getProviders(providers);
 /// // create a Device from the first provider
 /// if (!providers.empty()){
 ///     Device* myDevice = providers.first()->create();
@@ -137,7 +159,7 @@ public:
 /// \endcode
 ///
 /// It is also possible to add local providers, providers that
-/// are (pre)defined directly on the host application. That can
+/// are defined directly on the host application. That can
 /// be useful to provide and use default implementations of certain
 /// interfaces, along with plugin implementations.
 ///

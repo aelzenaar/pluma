@@ -36,12 +36,15 @@
 			<Add option="-DPLUMA_EXPORTS" />
 			<Add directory="..\include" />
 			<Add directory="..\src" />
+			<Add directory="..\extlibs\include" />
 		</Compiler>
 		<Unit filename="..\include\Pluma\Host.hpp" />
 		<Unit filename="..\include\Pluma\PluginManager.hpp" />
 		<Unit filename="..\include\Pluma\Provider.hpp" />
 		<Unit filename="..\src\Pluma\DLibrary.cpp" />
 		<Unit filename="..\src\Pluma\DLibrary.hpp" />
+		<Unit filename="..\src\Pluma\Dir.cpp" />
+		<Unit filename="..\src\Pluma\Dir.hpp" />
 		<Unit filename="..\src\Pluma\Host.cpp" />
 		<Unit filename="..\src\Pluma\PluginManager.cpp" />
 		<Unit filename="..\src\Pluma\Provider.cpp" />

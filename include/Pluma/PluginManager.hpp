@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Pluma - Plug-in Management Framework
-// Copyright (C) 2011 Gil Costa (gsaurus@gmail.com)
+// Copyright (C) 2010-2011 Gil Costa (gsaurus@gmail.com)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -63,6 +63,7 @@ public:
     /// \return True if the plugin is successfully loaded.
     ///
     /// \see load(const std::string&, const std::string&)
+    /// \see loadFromFolder
     /// \see unload
     /// \see unloadAll
     ///
@@ -70,7 +71,7 @@ public:
     bool load(const std::string& path);
 
 
-        ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
     /// \brief Load a plugin from a given folder
     ///
     /// \param folder The folder path.
@@ -82,11 +83,28 @@ public:
     /// \return True if the plugin is successfully loaded.
     ///
     /// \see load(const std::string&)
+    /// \see loadFromFolder
     /// \see unload
     /// \see unloadAll
     ///
     ////////////////////////////////////////////////////////////
     bool load(const std::string& folder, const std::string& pluginName);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Load all plugins from a given folder
+    ///
+    /// \param folder Path for the folder where the plug-ins are.
+    /// \param recursive If true it will search on sub-folders as well
+    ///
+    /// \return Number of successfully loaded plug-ins.
+    ///
+    /// \see load(const std::string&, const std::string&)
+    /// \see load(const std::string&)
+    /// \see unload
+    /// \see unloadAll
+    ///
+    ////////////////////////////////////////////////////////////
+    int loadFromFolder(const std::string& folder, bool recursive = false);
 
     ////////////////////////////////////////////////////////////
     /// \brief Unload a plugin.
@@ -98,6 +116,7 @@ public:
     ///
     /// \see load(const std::string&, const std::string&)
     /// \see load(const std::string&)
+    /// \see loadFromFolder
     /// \see unloadAll
     ///
     ////////////////////////////////////////////////////////////
@@ -108,6 +127,7 @@ public:
     ///
     /// \see load(const std::string&, const std::string&)
     /// \see load(const std::string&)
+    /// \see loadFromFolder
     /// \see unload
     ///
     ////////////////////////////////////////////////////////////
@@ -121,6 +141,22 @@ public:
     ////////////////////////////////////////////////////////////
     bool addProvider(Provider* provider);
 
+    ////////////////////////////////////////////////////////////
+    /// \brief Get the name of all loaded plugins.
+    ///
+    /// \param pluginNames A vector to fill with the plugins names.
+    ///
+    ////////////////////////////////////////////////////////////
+    void getLoadedPlugins(std::vector<const std::string*>& pluginNames) const;
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Check if a plug-in is loaded.
+    ///
+    /// \param pluginName the plug-in tname o check.
+    ///
+    ////////////////////////////////////////////////////////////
+    bool isLoaded(const std::string& pluginName) const;
+
 
 protected:
 
@@ -133,16 +169,16 @@ protected:
     PluginManager();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Regist a provider type
+    /// \brief Register a provider type
     ///
     /// \param type Provider type.
     /// \param version Current version of that provider type.
     /// \param lowestVersion Lowest compatible version of that provider type.
     ///
-    /// \see Host::registType
+    /// \see Host::registerType
     ///
     ////////////////////////////////////////////////////////////
-    void registType(const std::string& type, unsigned int version, unsigned int lowestVersion);
+    void registerType(const std::string& type, unsigned int version, unsigned int lowestVersion);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get providers of a certain type.

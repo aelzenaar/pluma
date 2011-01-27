@@ -22,31 +22,43 @@
 //
 ////////////////////////////////////////////////////////////
 
+#ifndef PLUMA_DIRECTORY_HPP
+#define PLUMA_DIRECTORY_HPP
 
 ////////////////////////////////////////////////////////////
-Pluma::Pluma(){
-    // Nothing to do
-}
+// Headers
+////////////////////////////////////////////////////////////
+#include <Pluma\Config.hpp>
+#include <string>
+#include <list>
 
+
+namespace pluma{
+
+namespace dir{
 
 ////////////////////////////////////////////////////////////
-template<typename ProviderType>
-void Pluma::acceptProviderType(){
-    PluginManager::registerType(
-        ProviderType::PLUMA_PROVIDER_TYPE,
-        ProviderType::PLUMA_INTERFACE_VERSION,
-        ProviderType::PLUMA_INTERFACE_LOWEST_VERSION
-    );
-}
-
-
+/// \brief List files of a directory.
+///
+/// \param list The output files list.
+/// \param folder The folder where to search in
+/// \param extension A file extension filter,
+/// empty extension will match all files.
+/// \param recursive If true it will list files in
+/// sub directories as well.
+///
 ////////////////////////////////////////////////////////////
-template<typename ProviderType>
-void Pluma::getProviders(std::vector<ProviderType*>& providers){
-    const std::list<Provider*>* lst = PluginManager::getProviders(ProviderType::PLUMA_PROVIDER_TYPE);
-    if (!lst) return;
-    providers.reserve(providers.size() + lst->size());
-    std::list<Provider*>::const_iterator it;
-    for (it = lst->begin() ; it != lst->end() ; ++it)
-        providers.push_back(static_cast<ProviderType*>(*it));
-}
+void listFiles(
+    std::list<std::string>& list,
+    const std::string& folder,
+    const std::string& extension = "",
+    bool recursive = false
+);
+
+
+}   // namespace dir
+
+}   // namespace pluma
+
+
+#endif // PLUMA_DIRECTORY_HPP
