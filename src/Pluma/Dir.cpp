@@ -27,7 +27,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <Pluma\Dir.hpp>
-#include <uce-dirent\uce-dirent.h>
+#include <Pluma\uce-dirent.h>
 #include <cstdio>
 #include <queue>
 

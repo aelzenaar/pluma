@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Win32">
+      <UniqueIdentifier>{29d7d5d5-26a8-4f61-90ea-18061f3a61d6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\SFML\System\Win32\Mutex.cpp">
+      <Filter>Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SFML\System\Win32\Platform.cpp">
+      <Filter>Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SFML\System\Win32\Thread.cpp">
+      <Filter>Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SFML\System\Clock.cpp" />
+    <ClCompile Include="..\..\src\SFML\System\Lock.cpp" />
+    <ClCompile Include="..\..\src\SFML\System\Randomizer.cpp" />
+    <ClCompile Include="..\..\src\SFML\System\Sleep.cpp" />
+    <ClCompile Include="..\..\src\SFML\System\Unicode.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\SFML\System\Win32\Mutex.hpp">
+      <Filter>Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SFML\System\Win32\Platform.hpp">
+      <Filter>Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SFML\System\Win32\Thread.hpp">
+      <Filter>Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SFML\System\Clock.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Lock.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Mutex.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\NonCopyable.hpp" />
+    <ClInclude Include="..\..\src\SFML\System\Platform.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Randomizer.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Resource.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Sleep.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Thread.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Unicode.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Vector2.hpp" />
+    <ClInclude Include="..\..\include\SFML\System\Vector3.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\SFML\System\Resource.inl" />
+    <None Include="..\..\include\SFML\System\ResourcePtr.inl" />
+    <None Include="..\..\include\SFML\System\Unicode.inl" />
+    <None Include="..\..\include\SFML\System\Vector2.inl" />
+    <None Include="..\..\include\SFML\System\Vector3.inl" />
+  </ItemGroup>
+</Project>
