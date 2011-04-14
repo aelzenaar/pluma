@@ -1,7 +1,6 @@
 #ifndef SIMPLE_WARRIOR_HPP
 #define SIMPLE_WARRIOR_HPP
 
-#include <Pluma\Pluma.hpp>
 #include "Warrior.hpp"
 
 /////////////////////////////////////////////////////////

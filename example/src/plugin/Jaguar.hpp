@@ -1,7 +1,6 @@
 #ifndef JAGUAR_HPP
 #define JAGUAR_HPP
 
-#include <Pluma\Pluma.hpp>
 #include "Warrior.hpp"
 
 /////////////////////////////////////////////////////////

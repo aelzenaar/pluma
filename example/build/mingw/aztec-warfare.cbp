@@ -46,6 +46,8 @@
 		</Linker>
 		<Unit filename="..\..\src\host\Main.cpp" />
 		<Unit filename="..\..\src\host\SimpleWarrior.hpp" />
+		<Unit filename="..\..\src\interface\Warrior.cpp" />
+		<Unit filename="..\..\src\interface\Warrior.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

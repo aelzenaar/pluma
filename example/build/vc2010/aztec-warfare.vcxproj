@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\host\Main.cpp" />
+    <ClCompile Include="..\..\src\interface\Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\host\SimpleWarrior.hpp" />
+    <ClInclude Include="..\..\src\interface\Warrior.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C061A27D-7CA0-4179-9869-672FA04A86A8}</ProjectGuid>

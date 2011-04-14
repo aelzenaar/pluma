@@ -5,7 +5,7 @@
 
 /////////////////////////////////////////////////////////
 /// Warrior Interface
-/// That's the kind of objects that plugins will provide
+/// That's the kind of objects that plugins will provide.
 /////////////////////////////////////////////////////////
 class Warrior{
 public:
@@ -13,18 +13,22 @@ public:
     // (...)
 };
 
+
 /////////////////////////////////////////////////////////
 /// WarriorProvider Interface
 /// Plugins will provide host with new Warriors throgh WarriorProvider
-/// implementations. Host automatically check version compatibility
+/// implementations. Host automatically check version compatibility.
 /////////////////////////////////////////////////////////
 // PLUMA_GEN_PROVIDER(Type, current_version, lowest_compatible_version)
-PLUMA_GEN_PROVIDER(Warrior, 1, 1);
-//PLUMA_GEN_PROVIDER_BEGIN(Warrior)
+PLUMA_PROVIDER_HEADER(Warrior);
+
+
+// - Advanced example of provider header generation
+//PLUMA_PROVIDER_HEADER_BEGIN(Warrior)
 //    public:
 //        virtual Warrior* create(int energy) = 0;
 //        virtual void populate(std::vector<Warrior*>& army, int numSoldiers) = 0;
-//PLUMA_GEN_PROVIDER_END(Warrior, 1, 1)
+//PLUMA_PROVIDER_HEADER_END
 
 
 #endif // WARRIOR_HPP

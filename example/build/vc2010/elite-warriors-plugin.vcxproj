@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\interface\Warrior.cpp" />
     <ClCompile Include="..\..\src\plugin\Connector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\interface\Warrior.hpp" />
     <ClInclude Include="..\..\src\plugin\Eagle.hpp" />
     <ClInclude Include="..\..\src\plugin\Jaguar.hpp" />
   </ItemGroup>

@@ -38,18 +38,18 @@
 #define PLUMA_2STRING(X) #X
 
 ////////////////////////////////////////////////////////////
-// Macro that helps host applications generating their
-// provider classes
+// Macro that helps host applications defining
+// their provider classes
 ////////////////////////////////////////////////////////////
-#define PLUMA_GEN_PROVIDER(TYPE, Version, LowestVersion)\
-PLUMA_GEN_PROVIDER_BEGIN(TYPE)\
+#define PLUMA_PROVIDER_HEADER(TYPE)\
+PLUMA_PROVIDER_HEADER_BEGIN(TYPE)\
 virtual TYPE* create() const = 0;\
-PLUMA_GEN_PROVIDER_END(TYPE, Version, LowestVersion)
+PLUMA_PROVIDER_HEADER_END
 
 ////////////////////////////////////////////////////////////
-// Macro that generate first part of the provider
+// Macro that generate first part of the provider definition
 ////////////////////////////////////////////////////////////
-#define PLUMA_GEN_PROVIDER_BEGIN(TYPE)\
+#define PLUMA_PROVIDER_HEADER_BEGIN(TYPE)\
 class TYPE##Provider: public pluma::Provider{\
 private:\
     friend class pluma::Pluma;\
@@ -61,13 +61,18 @@ public:\
     unsigned int getVersion() const{ return PLUMA_INTERFACE_VERSION; }
 
 ////////////////////////////////////////////////////////////
-// Macro that generate last part of the provider
+// Macro that generate last part of the provider definition
 ////////////////////////////////////////////////////////////
-#define PLUMA_GEN_PROVIDER_END(TYPE, Version, LowestVersion)\
-};\
+#define PLUMA_PROVIDER_HEADER_END };
+
+////////////////////////////////////////////////////////////
+// Macro that generate the provider declaration
+////////////////////////////////////////////////////////////
+#define PLUMA_PROVIDER_SOURCE(TYPE, Version, LowestVersion)\
 const std::string TYPE##Provider::PLUMA_PROVIDER_TYPE = PLUMA_2STRING( TYPE );\
 const unsigned int TYPE##Provider::PLUMA_INTERFACE_VERSION = Version;\
 const unsigned int TYPE##Provider::PLUMA_INTERFACE_LOWEST_VERSION = LowestVersion;
+
 
 ////////////////////////////////////////////////////////////
 // Macro that helps plugins generating their provider implementations

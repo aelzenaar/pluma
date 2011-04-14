@@ -43,6 +43,8 @@
 		<Linker>
 			<Add directory="..\..\..\lib" />
 		</Linker>
+		<Unit filename="..\..\src\interface\Warrior.cpp" />
+		<Unit filename="..\..\src\interface\Warrior.hpp" />
 		<Unit filename="..\..\src\plugin\Connector.cpp" />
 		<Unit filename="..\..\src\plugin\Eagle.hpp" />
 		<Unit filename="..\..\src\plugin\Jaguar.hpp" />

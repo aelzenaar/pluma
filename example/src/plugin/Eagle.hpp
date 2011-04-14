@@ -1,7 +1,6 @@
 #ifndef EAGLE_HPP
 #define EAGLE_HPP
 
-#include <Pluma\Pluma.hpp>
 #include "Warrior.hpp"
 
 /////////////////////////////////////////////////////////

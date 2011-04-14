@@ -16,25 +16,64 @@
 /// The host will use DeviceProviders to create objects of type Device.
 /// The plugin will provide host specifically with a KeyboardProvider.<br>
 ///
-/// Device code (shared):
+/// Device hpp (shared):
 /// \code
 /// #include <Pluma\Pluma.hpp>
 /// class Device{
 /// public:
-///     virtual std::string getDescription() = 0;
+///     virtual std::string getDescription() const = 0;
 /// };
-/// // create DevicedProvider with version 6, and compatible with at least v.3
-/// PLUMA_GEN_PROVIDER(Device, 6, 3);
+/// // create DevicedProvider class
+/// PLUMA_PROVIDER_HEADER(Device);
 /// \endcode
-/// 
+///
+/// Device cpp (shared):
+/// \code
+/// #include "Device.hpp"
+/// generate DevicedProvider with version 6, and compatible with at least v.3
+/// PLUMA_PROVIDER_SOURCE(Device, 6, 3);
+/// \endcode
+///
+///
+/// <br>
+/// Keyboard code on the plugin side:
+/// \code
+/// #include <Pluma\Pluma.hpp>
+/// #include "Device.hpp"
+///
+/// class Keyboard: public Device{
+/// public:
+///     std::string getDescription() const{
+///         return "keyboard";
+///     }
+/// };
+///
+/// // create KeyboardProvider, it implements DeviceProvider
+/// PLUMA_INHERIT_PROVIDER(Keyboard, Device);
+/// \endcode
+///
+/// plugin connector:
+/// \code
+/// #include <Pluma\Connector.hpp>
+/// #include "Keyboard.hpp"
+///
+/// PLUMA_CONNECTOR
+/// bool connect(pluma::Host& host){
+///     // add a keyboard provider to host
+///     host.add( new KeyboardProvider() );
+///     return true;
+/// }
+/// \endcode
+///
+///
 /// Host application code:
 /// \code
 /// #include <Pluma\Pluma.hpp>
-/// 
+///
 /// #include "Device.hpp"
 /// #include <iostream>
 /// #include <vector>
-/// 
+///
 /// int main(){
 ///
 ///     pluma::Pluma plugins;
@@ -56,36 +95,6 @@
 ///         delete myDevice;
 ///     }
 ///     return 0;
-/// }
-/// \endcode
-///
-/// <br>
-/// Keyboard code on the plugin side:
-/// \code
-/// #include <Pluma\Pluma.hpp>
-/// #include "Device.hpp"
-///
-/// class Keyboard: public Device{
-/// public:
-///     std::string getDescription(){
-///         return "keyboard";
-///     }
-/// };
-///
-/// // create KeyboardProvider, it implements DeviceProvider
-/// PLUMA_INHERIT_PROVIDER(Keyboard, Device);
-/// \endcode
-///
-/// plugin connector:
-/// \code
-/// #include <Pluma\Connector.hpp>
-/// #include "Keyboard.hpp"
-///
-/// PLUMA_CONNECTOR
-/// bool connect(pluma::Host& host){
-///     // add a keyboard provider to host
-///     host.add( new KeyboardProvider() );
-///     return true;
 /// }
 /// \endcode
 ///
