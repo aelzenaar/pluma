@@ -26,9 +26,9 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <Pluma\PluginManager.hpp>
-#include <Pluma\DLibrary.hpp>
-#include <Pluma\Dir.hpp>
+#include <Pluma/PluginManager.hpp>
+#include <Pluma/DLibrary.hpp>
+#include <Pluma/Dir.hpp>
 #include <cstdio>
 
 namespace pluma{

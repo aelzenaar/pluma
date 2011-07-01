@@ -26,7 +26,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <Pluma\DLibrary.hpp>
+#include <Pluma/DLibrary.hpp>
 #include <cstdio>
 #include <string>
 
@@ -54,7 +54,7 @@ DLibrary* DLibrary::load(const std::string& path){
             const char* errorString = ::dlerror();
             fprintf(stderr, "Failed to load library \"%s\".", path.c_str());
             if(errorString) fprintf(stderr, " OS returned error: \"%s\".", errorString);
-            fprintf("\n");
+            fprintf(stderr, "\n");
             return NULL;
         }
     #endif

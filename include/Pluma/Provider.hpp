@@ -28,7 +28,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <Pluma\Config.hpp>
+#include <Pluma/Config.hpp>
 #include <string>
 
 
@@ -121,7 +121,7 @@ private:
 ///
 /// Device hpp (shared):
 /// \code
-/// #include <Pluma\Pluma.hpp>
+/// #include <Pluma/Pluma.hpp>
 /// class Device{
 /// public:
 ///     virtual std::string getDescription() const = 0;
@@ -141,7 +141,7 @@ private:
 /// <br>
 /// Keyboard code on the plugin side:
 /// \code
-/// #include <Pluma\Pluma.hpp>
+/// #include <Pluma/Pluma.hpp>
 /// #include "Device.hpp"
 ///
 /// class Keyboard: public Device{
@@ -157,7 +157,7 @@ private:
 ///
 /// plugin connector:
 /// \code
-/// #include <Pluma\Connector.hpp>
+/// #include <Pluma/Connector.hpp>
 /// #include "Keyboard.hpp"
 ///
 /// PLUMA_CONNECTOR
@@ -171,7 +171,7 @@ private:
 ///
 /// Host application code:
 /// \code
-/// #include <Pluma\Pluma.hpp>
+/// #include <Pluma/Pluma.hpp>
 ///
 /// #include "Device.hpp"
 /// #include <iostream>

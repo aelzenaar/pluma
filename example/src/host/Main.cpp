@@ -1,4 +1,4 @@
-#include <Pluma\Pluma.hpp>
+#include <Pluma/Pluma.hpp>
 #include "Warrior.hpp"
 #include "SimpleWarrior.hpp"
 #include <iostream>

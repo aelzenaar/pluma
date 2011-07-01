@@ -1,4 +1,4 @@
-#include <Pluma\Connector.hpp>
+#include <Pluma/Connector.hpp>
 #include "Eagle.hpp"
 #include "Jaguar.hpp"
 

@@ -1,7 +1,7 @@
 #ifndef WARRIOR_HPP
 #define WARRIOR_HPP
 
-#include <Pluma\Pluma.hpp>
+#include <Pluma/Pluma.hpp>
 
 /////////////////////////////////////////////////////////
 /// Warrior Interface
