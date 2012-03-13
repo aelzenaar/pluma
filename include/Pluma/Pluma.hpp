@@ -149,7 +149,7 @@ public:
 /// // Tell it to accept providers of the type DeviceProvider
 /// pluma.acceptProviderType<DeviceProvider>();
 /// // Load some dll
-/// pluma.load("plugins\\standard_devices");
+/// pluma.load("plugins/standard_devices");
 /// // Get device providers into a vector
 /// std::vector<DeviceProvider*> providers;
 /// pluma.getProviders(providers);
