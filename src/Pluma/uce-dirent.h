@@ -366,7 +366,7 @@ opendir(
     if (dirp->dirname < p  &&
         *(p - 1) != '\\'  &&  *(p - 1) != '/'  &&  *(p - 1) != ':')
     {
-      strcpy (p++, "\\");
+      strcpy (p++, "/");
     }
 # ifdef DIRENT_WIN32_INTERFACE
     strcpy (p, "*"); /*scan files with and without extension in win32*/

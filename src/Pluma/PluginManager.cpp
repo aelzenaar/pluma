@@ -85,9 +85,9 @@ bool PluginManager::load(const std::string& path){
 bool PluginManager::load(const std::string& folder, const std::string& pluginName){
     if (folder.empty())
         return load(pluginName);
-    else if (folder[folder.size()-1] == '\\')
+    else if (folder[folder.size()-1] == '/' || folder[folder.size()-1] == '\\')
         return load(folder + pluginName);
-    return load(folder + "\\" + pluginName);
+    return load(folder + '/' + pluginName);
 }
 
 

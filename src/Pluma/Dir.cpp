@@ -69,7 +69,7 @@ void listFiles(std::list<std::string>& list, const std::string& folder, const st
             if ( name.compare(".") == 0 || name.compare("..") == 0) continue;
             // add path to the file name
             std::string path = currFolder;
-            path.append("\\");
+            path.append("/");
             path.append(name);
             // check if it's a folder by trying to open it
             subDir = opendir(path.c_str());
