@@ -62,15 +62,23 @@
 
     #else
 
-        // No specific directive needed for static build
-        #define PLUMA_CONNECTOR
+        // Only define the extern "C" for static build
+        #ifdef __cplusplus
+           #define PLUMA_CONNECTOR extern "C"
+        #else
+           #define PLUMA_CONNECTOR
+        #endif
 
     #endif
 
 #else
 
-    // Other platforms don't need to define anything
-    #define PLUMA_CONNECTOR
+    // Only define the extern "C" for other platforms
+    #ifdef __cplusplus
+       #define PLUMA_CONNECTOR extern "C"
+    #else
+       #define PLUMA_CONNECTOR
+    #endif
 
 #endif
 
