@@ -1,0 +1,3 @@
+src/Pluma/Dir.cpp, src/Pluma/Dir.hpp, src/Pluma/DLibrary.cpp,
+src/Pluma/DLibrary.hpp, src/Pluma/Host.cpp, src/Pluma/PluginManager.cpp,
+src/Pluma/Provider.cpp, src/Pluma/uce-dirent.h
